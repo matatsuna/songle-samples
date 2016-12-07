@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>Songle Widget API Examples</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <!--songleの部分-->
+    <div data-api="songle-widget-api-example" data-url="www.youtube.com/watch?v=PqJNc9KVIZE" id="songle-widget"></div>
+    <script src="https://widget.songle.jp/v1/widgets.js"></script>
+
+      <div class="row">
+        <div class="col s4">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">is系</span>
+              <table class="white-text">
+                  <thead>
+                      <tr>
+                        <th data-field="name">メソッド名</th>
+                        <th data-field="value">現在の値</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>isPlaying</td>
+                      <td id="isPlaying"></td>
+                    </tr>
+                    <tr>
+                      <td>isPaused</td>
+                      <td id="isPaused"></td>
+                    </tr>
+                    <tr>
+                      <td>isStopped</td>
+                      <td id="isStopped"></td>
+                    </tr>
+                    <tr>
+                      <td>isSeeking</td>
+                      <td id="isSeeking"></td>
+                    </tr>
+                    <tr>
+                      <td>isPlayingChorusSegment</td>
+                      <td id="isPlayingChorusSegment"></td>
+                    </tr>
+                    <tr>
+                      <td>isPlayingRepeatSegment</td>
+                      <td id="isPlayingRepeatSegment"></td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s4">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">current系</span>
+              <table class="white-text">
+                  <thead>
+                      <tr>
+                        <th data-field="name">メソッド名</th>
+                        <th data-field="value">現在の値</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>bpm</td>
+                      <td id="bpm"></td>
+                    </tr>
+                    <tr>
+                      <td>currentBeat(.position)</td>
+                      <td id="currentBeat"></td>
+                    </tr>
+                    <tr>
+                      <td>currentChord(.name)</td>
+                      <td id="currentChord"></td>
+                    </tr>
+                    <tr>
+                      <td>currentNote(.pitch)</td>
+                      <td id="currentNotepitch"></td>
+                    </tr>
+                    <tr>
+                      <td>currentNote(.number)</td>
+                      <td id="currentNotenumber"></td>
+                    </tr>
+                    <tr>
+                      <td>currentChorusSegment(.repeat.index)</td>
+                      <td id="currentChorusSegment"></td>
+                    </tr>
+                    <tr>
+                      <td>currentRepeatSegment(.repeat.index)</td>
+                      <td id="currentRepeatSegment"></td>
+                    </tr>
+                    <tr>
+                      <td>duration(.milliseconds)</td>
+                      <td id="duration"></td>
+                    </tr>
+                    <tr>
+                      <td>position(.milliseconds)</td>
+                      <td id="position"></td>
+                    </tr>
+                    <tr>
+                      <td>loadedRatio</td>
+                      <td id="loadedRatio"></td>
+                    </tr>
+                    <tr>
+                      <td>playedRatio</td>
+                      <td id="playedRatio"></td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s4">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">動画情報系</span>
+              <table class="white-text">
+                  <thead>
+                      <tr>
+                        <th data-field="name">メソッド名</th>
+                        <th data-field="value">現在の値</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>uuid</td>
+                      <td id="uuid"></td>
+                    </tr>
+                    <tr>
+                      <td>videoID</td>
+                      <td id="videoID"></td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
+
+<script>
+window.onSongleWidgetReady =
+  function(apiKey, songleWidget)
+  {
+    setInterval(
+      function()
+      {
+          $("#isPlaying").text(songleWidget.isPlaying);
+          $("#isPaused").text(songleWidget.isPaused);
+          $("#isStopped").text(songleWidget.isStopped);
+          $("#isSeeking").text(songleWidget.isSeeking);    
+          $("#isPlayingChorusSegment").text(songleWidget.isPlayingChorusSegment);
+          $("#isPlayingRepeatSegment").text(songleWidget.isPlayingRepeatSegment);
+
+          $("#bpm").text(songleWidget.bpm);
+          if(songleWidget.currentBeat!=null){
+          $("#currentBeat").text(songleWidget.currentBeat.position);
+          }
+          
+          if(songleWidget.currentChord!=null){
+          $("#currentChord").text(songleWidget.currentChord.name);
+          }
+
+          if(songleWidget.currentNote!=null){
+          $("#currentNotepitch").text(songleWidget.currentNote.pitch);
+          $("#currentNotenumber").text(songleWidget.currentNote.number);
+          }
+
+          if(songleWidget.currentChorusSegment!=null){
+          $("#currentChorusSegment").text(songleWidget.currentChorusSegment.repeat.index);
+          }else{
+          $("#currentChorusSegment").text("");
+          }
+
+          if(songleWidget.currentRepeatSegment!=null){
+          $("#currentRepeatSegment").text(songleWidget.currentRepeatSegment.repeat.index);
+          }else{
+          $("#currentRepeatSegment").text("");
+          }
+
+          $("#duration").text(songleWidget.duration.milliseconds);
+          $("#position").text(songleWidget.position.milliseconds);
+          $("#loadedRatio").text(songleWidget.loadedRatio);
+          $("#playedRatio").text(songleWidget.playedRatio);
+          $("#uuid").text(songleWidget.uuid);
+          $("#videoID").text(songleWidget.videoID);
+      }, 100);
+  }
+
+</script>
